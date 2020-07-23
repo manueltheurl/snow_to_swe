@@ -14,7 +14,9 @@ class SnowToSwe:
         """
         This is a model to calculate the snow water equivalent out of given snow heights. The model is ported from R
         code which was written from Winkler et al. 2020 "Snow Water Equivalents exclusively from Snow Heights and their
-        temporal Changes: The ∆ SNOW . MODEL".
+        temporal Changes: The ∆SNOW.MODEL".
+
+        The corresponding R model can be found here: https://r-forge.r-project.org/projects/nixmass/
 
         The code structure was adapted a bit but the calculations, available input and output variables stayed the same.
 
@@ -48,6 +50,7 @@ class SnowToSwe:
     def convert_list(self, Hobs, timestep, verbose=False):
         """
         Converts a continuous time series of snow heights into snow water equivalents.
+
         :param Hobs:  List of snow heights evenly spaced by timestep
         :param timestep: in hours
         :param verbose: bool for printing out information about the ongoing process
@@ -197,6 +200,7 @@ class SnowToSwe:
     def convert_csv(self, path_to_input_csv, path_to_output_csv=None, date_time_pattern="%Y-%m-%d", verbose=False):
         """
         Converts a continuous time series of snow heights given in a csv file into snow water equivalents.
+
         :param path_to_input_csv: path of a .csv file containing the data. Required columns are "date" with data format
             e.g. 2020-09-09 and "hs" (snow height in meters) with data format e.g. 0.56
         :param path_to_output_csv: Path where to save result csv, make sure all folders exist. If None it will not be
@@ -478,7 +482,7 @@ if __name__ == "__main__":
     hs_data_as_list = pd.read_csv(path_to_hsdata)["hs"].tolist()
     swe_list = snow_to_swe.convert_list(hs_data_as_list, 24, verbose=True)
 
-    # results match with given R model of ... TODO
-    print("Mean", np.mean(swe_list))  # results match almost: 38.58482
-    print("Max", max(swe_list))  # results match: 282.2533
-    print("Sum", sum(swe_list))  # results match almost: 14083.46
+    # results match with given R model example of Winkler et al. 2020 (git repo)
+    print("Mean", np.mean(swe_list))
+    print("Max", max(swe_list))
+    print("Sum", sum(swe_list))
