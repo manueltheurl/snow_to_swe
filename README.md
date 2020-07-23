@@ -8,9 +8,6 @@ The code structure was adapted a bit but the calculations, input and output vari
 
 Ported by Manuel Theurl who is taking no warranties for the correctness of the R to python port.
 
-
-### How do I get set up? ###
-
 ## Installation ##
 Clone the repository using the **Clone button**.
 The software needs specific modules which can be downloaded automatically using the following commands in the Software directory of the repo:
