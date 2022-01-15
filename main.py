@@ -144,8 +144,10 @@ class SnowToSwe:
                         h[:, t] = (1 - epsilon) * h[:, t]
                         # epsilon <- 1 - c.ov * sigma.null * exp(-k.ov * snowpack.dd$rho/(rho.max - snowpack.dd$rho))
                         # h[,t]     <- epsilon * h[,t]
+
                         swe[:, t] = swe[:, t - 1]
-                        age[:ly - 1, t] = age[ly - 1, t - 1] + 1
+                        age[:ly, t] = age[:ly, t - 1] + 1
+
                         H[t] = sum(h[:, t])
                         SWE[t] = sum(swe[:, t])
 
