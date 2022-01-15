@@ -319,8 +319,9 @@ class SnowToSwe:
                 swe_d[idx_max] = swe_d[idx_max] - swe_excess
 
                 # distribute excess swe to other layers top-down
-                lys = range(1, ly)
-                lys = [element for j, element in enumerate(lys) if j != idx_max]
+                lys = list(range(ly))
+                for index in sorted(idx_max, reverse=True):
+                    del lys[index]
                 i = lys[len(lys) - 1]
                 swe_excess_all = sum(swe_excess)
 
@@ -332,7 +333,7 @@ class SnowToSwe:
                     swe_d[i] = swe_d[i] + swe_res
                     swe_excess_all = swe_excess_all - swe_res
                     i = i - 1
-                    if i <= 0 < swe_excess_all:
+                    if i < 0 < swe_excess_all:
                         self._current_day_info_string += " runoff"
                         break
             else:
